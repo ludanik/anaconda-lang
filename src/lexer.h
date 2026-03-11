@@ -1,13 +1,9 @@
-#include <algorithm>
-#include <cassert>
+#pragma once
+
 #include <cctype>
-#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
-#include <map>
-#include <memory>
 #include <string>
-#include <vector>
 
 enum Token {
   tok_eof = -1,

@@ -1,3 +1,8 @@
+#pragma once
+
+#include "ast.h"
+#include "parser.h"
+
 #include "../include/KaleidoscopeJIT.h"
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/STLExtras.h"
@@ -20,6 +25,7 @@
 #include "llvm/Transforms/Scalar/GVN.h"
 #include "llvm/Transforms/Scalar/Reassociate.h"
 #include "llvm/Transforms/Scalar/SimplifyCFG.h"
+
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -31,8 +37,8 @@
 #include <string>
 #include <vector>
 
-#include "lexer.h"
-#include "driver.h"
+using namespace llvm;
+using namespace llvm::orc;
 
 static std::unique_ptr<LLVMContext> TheContext;
 static std::unique_ptr<Module> TheModule;
