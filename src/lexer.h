@@ -10,7 +10,12 @@ enum Token {
   tok_def = -2,
   tok_extern = -3,
   tok_identifier = -4,
-  tok_number = -5
+  tok_number = -5,
+
+  // control flow
+  tok_if = -6,
+  tok_then = -7,
+  tok_else = -8
 };
 
 static std::string IdentifierStr; 
@@ -31,6 +36,12 @@ static int gettok() {
       return tok_def;
     if (IdentifierStr == "extern")
       return tok_extern;
+    if (IdentifierStr == "if")
+      return tok_if;
+    if (IdentifierStr == "then")
+      return tok_then;
+    if (IdentifierStr == "else")
+      return tok_else;
     return tok_identifier;
   }
 
