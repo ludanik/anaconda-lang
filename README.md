@@ -22,7 +22,7 @@ cd src/
 
 ## Demo - Fibonacci Sequence
 
-```bash
+```
 $ ./anaconda
 ready> 
  def fib(n)
