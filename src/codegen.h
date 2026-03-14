@@ -191,6 +191,83 @@ Function *PrototypeAST::codegen() {
   return F;
 }
 
+Value *ForExprAST::codegen() {
+  Value *StartVal = Start->codegen();
+
+  if (!StartVal)
+  {
+    return nullptr;
+  }
+
+  Function *TheFunction = Builder->GetInsertBlock()->getParent();
+
+  BasicBlock *PreheaderBB = Builder->GetInsertBlock();
+
+  BasicBlock *LoopBB = BasicBlock::Create(*TheContext, "loop", TheFunction);
+
+  Builder->CreateBr(LoopBB);
+
+  Builder->SetInsertPoint(LoopBB);
+
+  PHINode *Variable = Builder->CreatePHI(Type::getDoubleTy(*TheContext), 2, VarName);
+
+  Variable->addIncoming(StartVal, PreheaderBB);
+
+  Value *OldVal = NamedValues[VarName];
+  NamedValues[VarName] = Variable;
+
+  if (!Body->codegen())
+  {
+    return nullptr;
+  }
+
+  Value *StepVal = nullptr;
+
+  if (Step) 
+  {
+    StepVal = Step->codegen();
+    if (!StepVal) 
+    {
+      return nullptr;
+    }  
+  }
+  else
+  {
+    StepVal = ConstantFP::get(*TheContext, APFloat(1.0));
+  }     
+
+  Value *NextVar = Builder->CreateFAdd(Variable, StepVal, "nextvar");
+
+  Value *EndCond = End->codegen();
+
+  if (!EndCond)
+  {
+    return nullptr;
+  }
+
+  EndCond = Builder->CreateFCmpONE(EndCond, ConstantFP::get(*TheContext, APFloat(0.0)), "loopcond");
+
+  BasicBlock *LoopEndBB = Builder->GetInsertBlock();
+  BasicBlock *AfterBB = BasicBlock::Create(*TheContext, "afterloop", TheFunction);
+
+  Builder->CreateCondBr(EndCond, LoopBB, AfterBB);
+
+  Builder->SetInsertPoint(AfterBB);
+
+  Variable->addIncoming(NextVar, LoopEndBB);
+
+  if (OldVal)
+  {
+    NamedValues[VarName] = OldVal;
+  }
+  else
+  {
+    NamedValues.erase(VarName);
+  }
+
+  return Constant::getNullValue(Type::getDoubleTy(*TheContext));
+}
+
 Function *FunctionAST::codegen() {
   auto &P = *Proto;
   FunctionProtos[Proto->getName()] = std::move(Proto);
