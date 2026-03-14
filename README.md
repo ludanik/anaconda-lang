@@ -20,18 +20,18 @@ cd src/
 ./anaconda
 ```
 
-## Demo 
+## Example 
 
-Here's a function written in Anaconda that finds the nth Fibonacci number
 ```python
+# Find the nth Fibonacci number
 def fib(n)
     if n < 3 then
         1
     else
         fib(n-1) + fib(n-2);
+fib(15);
 ```
 
-Here's how you use it in the interpreter 
 ```
 $ ./anaconda
 ready> 
