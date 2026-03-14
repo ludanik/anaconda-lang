@@ -19,7 +19,11 @@ enum Token {
 
   // for loop
   tok_for = -9,
-  tok_in = -10
+  tok_in = -10,
+
+  // user defined ops
+  tok_binary = -11,
+  tok_unary = -12
 };
 
 static std::string IdentifierStr; 
