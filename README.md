@@ -11,12 +11,13 @@ My attempt at implementing a simple language using LLVM components in C++
 - Comments
 - Error handling (soon)
 
-## Usage
+## Getting Started
 
 ```bash
+git clone https://github.com/ludanik/anaconda-lang.git
+cd anaconda-lang
 make
 cd src/
-# Start interpreter
 ./anaconda
 ```
 
