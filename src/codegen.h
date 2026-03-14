@@ -3,7 +3,7 @@
 #include "ast.h"
 #include "parser.h"
 
-#include "../include/KaleidoscopeJIT.h"
+#include "AnacondaJIT.h"
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/IR/BasicBlock.h"
@@ -44,7 +44,7 @@ static std::unique_ptr<LLVMContext> TheContext;
 static std::unique_ptr<Module> TheModule;
 static std::unique_ptr<IRBuilder<>> Builder;
 static std::map<std::string, Value *> NamedValues;
-static std::unique_ptr<KaleidoscopeJIT> TheJIT;
+static std::unique_ptr<AnacondaJIT> TheJIT;
 static std::unique_ptr<FunctionPassManager> TheFPM;
 static std::unique_ptr<LoopAnalysisManager> TheLAM;
 static std::unique_ptr<FunctionAnalysisManager> TheFAM;

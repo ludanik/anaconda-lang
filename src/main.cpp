@@ -14,7 +14,7 @@ int main() {
   fprintf(stderr, "ready> ");
   getNextToken();
 
-  TheJIT = ExitOnErr(KaleidoscopeJIT::Create());
+  TheJIT = ExitOnErr(AnacondaJIT::Create());
 
   InitializeModuleAndManagers();
 

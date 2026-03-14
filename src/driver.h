@@ -5,7 +5,7 @@
 
 static void InitializeModuleAndManagers() {
   TheContext = std::make_unique<LLVMContext>();
-  TheModule = std::make_unique<Module>("KaleidoscopeJIT", *TheContext);
+  TheModule = std::make_unique<Module>("AnacondaJIT", *TheContext);
   TheModule->setDataLayout(TheJIT->getDataLayout());
 
   Builder = std::make_unique<IRBuilder<>>(*TheContext);
